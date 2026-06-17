@@ -1,0 +1,42 @@
+[gd_scene format=4 uid="uid://c5yrdfbofmv7"]
+
+[ext_resource type="Script" uid="uid://l62x0ul5ymhw" path="res://scripts/game.gd" id="1_iywne"]
+[ext_resource type="Texture2D" uid="uid://3jwdwvkqfk64" path="res://Aseprite/walkTile.png" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://dt4mah86u0754" path="res://scenes/player.tscn" id="2_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://d3vtdpbrhnpjq" path="res://Aseprite/spin_tile.png" id="3_iywne"]
+[ext_resource type="Script" uid="uid://momif01m25sv" path="res://scripts/player.gd" id="3_lbhrr"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
+texture = ExtResource("1_uwrxv")
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p57ef"]
+texture = ExtResource("3_iywne")
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+0:0/0/custom_data_1 = true
+
+[sub_resource type="TileSet" id="TileSet_lnu2h"]
+custom_data_layer_0/name = "walkable"
+custom_data_layer_0/type = 1
+custom_data_layer_1/name = "spinnable"
+custom_data_layer_1/type = 1
+sources/0 = SubResource("TileSetAtlasSource_yqjtg")
+sources/1 = SubResource("TileSetAtlasSource_p57ef")
+
+[node name="Game" type="Node2D" unique_id=786702675]
+script = ExtResource("1_iywne")
+
+[node name="TileMap" type="TileMapLayer" parent="." unique_id=983767496]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAMAAgAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAADAAYAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAYAAQAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAGAAYAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAAYAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAEAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAEAAAAAAAAAAAALAAYAAAAAAAAAAAAMAAEAAAAAAAAAAAAMAAYAAAAAAAAAAAAMAAcAAAAAAAAAAAANAAEAAAAAAAAAAAAOAAEAAAAAAAAAAAAPAAEAAAAAAAAAAAAQAAEAAAAAAAAAAAARAAEAAAAAAAAAAAAFAAYAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_lnu2h")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1046665203]
+anchor_mode = 0
+zoom = Vector2(3, 3)
+
+[node name="CharacterBody2D" parent="." unique_id=1408601688 instance=ExtResource("2_yqjtg")]
+position = Vector2(96, 96)
+script = ExtResource("3_lbhrr")

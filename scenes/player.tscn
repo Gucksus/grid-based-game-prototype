@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dt4mah86u0754"]
+
+[ext_resource type="Texture2D" uid="uid://du8sdoniogr3w" path="res://Aseprite/player.png" id="1_3vyb7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqjtg"]
+size = Vector2(16, 16)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1408601688]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=668184515]
+texture = ExtResource("1_3vyb7")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1423002818]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_yqjtg")
