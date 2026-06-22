@@ -15,6 +15,13 @@ func build_from_tilemap(tile_map: TileMapLayer):
 			var cell_data = tile_map.get_cell_tile_data(Vector2i(x + rect.position.x, y + rect.position.y))
 			row.append({
 				"walkable": cell_data.get_custom_data("walkable") if cell_data else false,
+				"spinnable": cell_data.get_custom_data("spinnable") if cell_data else false,
 				"occupant": null
 			})
 		state_grid.append(row)
+
+func is_walkable(value: Vector2i) -> bool:
+	return state_grid[value.y][value.x]["walkable"]
+
+func is_spinnable(value: Vector2i) -> bool:
+	return state_grid[value.y][value.x]["spinnable"]
