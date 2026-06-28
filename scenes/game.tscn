@@ -38,5 +38,5 @@ anchor_mode = 0
 zoom = Vector2(3, 3)
 
 [node name="CharacterBody2D" parent="." unique_id=1408601688 instance=ExtResource("2_yqjtg")]
-position = Vector2(96, 96)
+position = Vector2(64, 96)
 script = ExtResource("3_lbhrr")
