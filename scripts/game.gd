@@ -1,6 +1,8 @@
 extends Node2D
 
-@onready var tile_map: TileMapLayer = $TileMap
+@onready var grid_map: TileMapLayer = $GridMap
+@onready var hight_light_map: TileMapLayer = $HightLightMap
 
 func _ready() -> void:
-	AutoScanGrid.build_from_tilemap(tile_map)
+	AutoScanGrid.init_grid(grid_map, hight_light_map)
+	AutoScanGrid.build_from_tilemap()

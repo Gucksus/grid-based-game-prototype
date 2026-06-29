@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dt4mah86u0754" path="res://scenes/player.tscn" id="2_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://d3vtdpbrhnpjq" path="res://Aseprite/spin_tile.png" id="3_iywne"]
 [ext_resource type="Script" uid="uid://momif01m25sv" path="res://scripts/player.gd" id="3_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://be8xp4uatc33p" path="res://Aseprite/hightlight_tile.png" id="4_p57ef"]
+[ext_resource type="Script" uid="uid://dw3470vyfiks0" path="res://scripts/hight_light_map.gd" id="5_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
 texture = ExtResource("1_uwrxv")
@@ -25,13 +27,25 @@ custom_data_layer_1/type = 1
 sources/0 = SubResource("TileSetAtlasSource_yqjtg")
 sources/1 = SubResource("TileSetAtlasSource_p57ef")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5sy4"]
+texture = ExtResource("4_p57ef")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_iywne"]
+sources/0 = SubResource("TileSetAtlasSource_u5sy4")
+
 [node name="Game" type="Node2D" unique_id=786702675]
 script = ExtResource("1_iywne")
 
-[node name="TileMap" type="TileMapLayer" parent="." unique_id=983767496]
+[node name="GridMap" type="TileMapLayer" parent="." unique_id=983767496]
+z_index = -1
 use_parent_material = true
 tile_map_data = PackedByteArray("AAAMAAgAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAADAAUAAAAAAAAAAAADAAYAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAYAAQAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAAGAAYAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAEAAAAAAAAAAAAJAAEAAAAAAAAAAAAJAAYAAAAAAAAAAAAKAAEAAAAAAAAAAAAKAAYAAAAAAAAAAAALAAEAAAAAAAAAAAALAAYAAAAAAAAAAAAMAAEAAAAAAAAAAAAMAAYAAAAAAAAAAAAMAAcAAAAAAAAAAAANAAEAAAAAAAAAAAAOAAEAAAAAAAAAAAAPAAEAAAAAAAAAAAAQAAEAAAAAAAAAAAARAAEAAAAAAAAAAAAFAAYAAAAAAAAAAAANAAgAAAAAAAAAAAAOAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAAGAAcAAAAAAAAAAAAGAAgAAAAAAAAAAAAGAAkAAAAAAAAAAAAGAAoAAAAAAAAAAAAGAAsAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAYAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_lnu2h")
+
+[node name="HightLightMap" type="TileMapLayer" parent="." unique_id=2054780262]
+tile_set = SubResource("TileSet_iywne")
+script = ExtResource("5_u5sy4")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1046665203]
 anchor_mode = 0

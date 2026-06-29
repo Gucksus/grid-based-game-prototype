@@ -19,22 +19,24 @@ enum States {MOVING, CHOOSING_DIRECTION}
 var current_state:= States.MOVING 
 
 @onready var arrow: Sprite2D = $Arrow
-@onready var tile_map: TileMapLayer = $"../TileMap"
+@onready var grid_map: TileMapLayer = $"../GridMap"
+@onready var hight_light_map: TileMapLayer = $"../HightLightMap"
+
 # The position of the player on the logic grid.
 var grid_pos: Vector2i
 
 func _ready() -> void:
 	await get_parent().ready
-	grid_pos = tile_map.local_to_map(position) - AutoScanGrid.grid_offset
+	grid_pos = grid_map.local_to_map(position) - AutoScanGrid.grid_offset
 	if not AutoScanGrid.is_walkable(grid_pos):
 		grid_pos = Vector2i(0, 0)  
-	position = tile_map.map_to_local(grid_pos + AutoScanGrid.grid_offset) - Vector2(8, 8)
+	position = grid_map.map_to_local(grid_pos + AutoScanGrid.grid_offset) - Vector2(8, 8)
 	arrow.visible = false
 
 func try_move_to(pos: Vector2i):
 	if AutoScanGrid.is_walkable(pos):
 		grid_pos = pos
-		position = tile_map.map_to_local(grid_pos + AutoScanGrid.grid_offset) - Vector2(8, 8)
+		position = grid_map.map_to_local(grid_pos + AutoScanGrid.grid_offset) - Vector2(8, 8)
 		print(position)
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -62,8 +64,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		States.CHOOSING_DIRECTION:
 			if event.is_action_pressed("interact"):
 				arrow.visible = false
-				current_state = States.MOVING
-				print(grid_pos + arrow.get_meta("directional_vector"))
+				AutoScanGrid.state_grid[grid_pos.y][grid_pos]["choosing"] = true
+				AutoScanGrid.flood_fill(grid_pos + arrow.get_meta("directional_vector"))
 			
 			for input in angle_inputs:
 				if event.is_action_pressed(input) and AutoScanGrid.is_walkable(grid_pos + directional_inputs[input]):
