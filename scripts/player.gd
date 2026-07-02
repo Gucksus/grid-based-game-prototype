@@ -27,17 +27,17 @@ var grid_pos: Vector2i
 
 func _ready() -> void:
 	await get_parent().ready
-	grid_pos = grid_map.local_to_map(position) - AutoScanGrid.grid_offset
+	grid_pos = grid_map.local_to_map(position)
 	if not AutoScanGrid.is_walkable(grid_pos):
-		grid_pos = Vector2i(0, 0)  
-	position = grid_map.map_to_local(grid_pos + AutoScanGrid.grid_offset) - Vector2(8, 8)
+		grid_pos = AutoScanGrid.first_walkable_tile()
+	position = grid_map.map_to_local(grid_pos) - Vector2(8, 8)
 	arrow.visible = false
 
 func try_move_to(pos: Vector2i):
 	if AutoScanGrid.is_walkable(pos):
 		grid_pos = pos
-		position = grid_map.map_to_local(grid_pos + AutoScanGrid.grid_offset) - Vector2(8, 8)
-		print(position)
+		position = grid_map.map_to_local(grid_pos) - Vector2(8, 8)
+		print(position, " (Moved)")
 
 func _unhandled_input(event: InputEvent) -> void:
 	match current_state:
@@ -58,13 +58,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 			for input in directional_inputs:
 				if event.is_action_pressed(input):
-					var new_pos: Vector2i = (grid_pos + directional_inputs[input]).clamp(Vector2i(0, 0), AutoScanGrid.grid_size)
+					var new_pos: Vector2i = (grid_pos + directional_inputs[input]).clamp(Vector2i(0, 0), AutoScanGrid.grid_size - Vector2i(1, 1))
 					try_move_to(new_pos)
 
 		States.CHOOSING_DIRECTION:
 			if event.is_action_pressed("interact"):
 				arrow.visible = false
-				AutoScanGrid.state_grid[grid_pos.y][grid_pos]["choosing"] = true
+				AutoScanGrid.state_grid[grid_pos.y][grid_pos.x]["choosing"] = true
 				AutoScanGrid.flood_fill(grid_pos + arrow.get_meta("directional_vector"))
 			
 			for input in angle_inputs:
