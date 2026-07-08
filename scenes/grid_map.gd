@@ -1,7 +1,4 @@
-extends TileMapLayer 
-
-func hightlight_tile(pos: Vector2i):
-	set_cell(pos, 0, Vector2i(0, 0))
+extends TileMapLayer
 
 func move_tile(from: Vector2i,to :Vector2i):
 	var source_id = get_cell_source_id(from)
