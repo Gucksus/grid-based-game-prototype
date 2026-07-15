@@ -13,10 +13,10 @@ var angle_inputs = {
 	"right": [PI / 2, Vector2i(24, 8)],
 	"left": [PI * 3/2, Vector2i(-8, 8)]
 }
-var ini_rotate_point = Vector2i(8, 4)
+var ini_rotate_point := Vector2i(8, 4)
 
 enum States {MOVING, CHOOSING_DIRECTION, CHOOSING_ROTATION}
-var current_state:= States.MOVING 
+var current_state := States.MOVING 
 
 @onready var arrow: Sprite2D = $Arrow
 @onready var grid_map: TileMapLayer = $"../GridMap"
@@ -37,7 +37,7 @@ func try_move_to(pos: Vector2i):
 	if AutoScanGrid.is_walkable(pos):
 		grid_pos = pos
 		position = grid_map.map_to_local(grid_pos) - Vector2(8, 8)
-		print(grid_pos, " (Moved)")
+		print(AutoScanGrid.state_grid[grid_pos])
 
 func _unhandled_input(event: InputEvent) -> void:
 	match current_state:
@@ -58,16 +58,16 @@ func _unhandled_input(event: InputEvent) -> void:
 
 			for input in directional_inputs:
 				if event.is_action_pressed(input):
-					var new_pos: Vector2i = (grid_pos + directional_inputs[input]).clamp(Vector2i(0, 0), AutoScanGrid.grid_size - Vector2i(1, 1))
+					var new_pos: Vector2i = grid_pos + directional_inputs[input]
 					try_move_to(new_pos)
 
 		States.CHOOSING_DIRECTION:
 			if event.is_action_pressed("interact"):
 				arrow.visible = false
 				# Temporarily set the spinning tile to true so that flood fill works correctly.
-				AutoScanGrid.state_grid[grid_pos.y][grid_pos.x]["choosing"] = true
+				AutoScanGrid.state_grid[grid_pos].being_chose = true
 				AutoScanGrid.flood_fill(grid_pos + arrow.get_meta("directional_vector"))
-				AutoScanGrid.state_grid[grid_pos.y][grid_pos.x]["choosing"] = false
+				AutoScanGrid.state_grid[grid_pos].being_chose = false
 				AutoScanGrid.update_choosing_tiles()
 				current_state = States.CHOOSING_ROTATION
 			
@@ -79,4 +79,4 @@ func _unhandled_input(event: InputEvent) -> void:
 					
 		States.CHOOSING_ROTATION:
 			if event.is_action_pressed("interact"):
-				AutoScanGrid.spin_tile()
+				AutoScanGrid.spin_tile(grid_pos)

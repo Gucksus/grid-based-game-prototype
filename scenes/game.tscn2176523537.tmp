@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://cmc8dpxcchpv1" path="res://scenes/grid_map.gd" id="4_gee14"]
 [ext_resource type="Texture2D" uid="uid://be8xp4uatc33p" path="res://Aseprite/hightlight_tile.png" id="4_p57ef"]
 [ext_resource type="TileSet" uid="uid://bvoxxby17ndd" path="res://resource/grid_tile_set.tres" id="4_u5sy4"]
-[ext_resource type="Script" uid="uid://ctyslh4u6q2fg" path="res://scripts/rotating_map.gd" id="5_gee14"]
 [ext_resource type="Script" uid="uid://dw3470vyfiks0" path="res://scripts/hight_light_map.gd" id="5_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5sy4"]
@@ -26,7 +25,6 @@ script = ExtResource("5_u5sy4")
 
 [node name="RotatingMap" type="TileMapLayer" parent="." unique_id=31306580]
 tile_set = ExtResource("4_u5sy4")
-script = ExtResource("5_gee14")
 
 [node name="GridMap" type="TileMapLayer" parent="." unique_id=983767496]
 z_index = -1
@@ -40,5 +38,5 @@ anchor_mode = 0
 zoom = Vector2(3, 3)
 
 [node name="CharacterBody2D" parent="." unique_id=1408601688 instance=ExtResource("2_yqjtg")]
-position = Vector2(48, 96)
+position = Vector2(64, 96)
 script = ExtResource("3_lbhrr")

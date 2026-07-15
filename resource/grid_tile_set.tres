@@ -1,0 +1,24 @@
+[gd_resource type="TileSet" format=3 uid="uid://bvoxxby17ndd"]
+
+[ext_resource type="Texture2D" uid="uid://3jwdwvkqfk64" path="res://Aseprite/walkTile.png" id="1_ldgme"]
+[ext_resource type="Texture2D" uid="uid://d3vtdpbrhnpjq" path="res://Aseprite/spin_tile.png" id="2_swlou"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
+texture = ExtResource("1_ldgme")
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+0:0/0/custom_data_1 = "walk"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p57ef"]
+texture = ExtResource("2_swlou")
+0:0/0 = 0
+0:0/0/custom_data_0 = true
+0:0/0/custom_data_1 = "spin_pivot"
+
+[resource]
+custom_data_layer_0/name = "walkable"
+custom_data_layer_0/type = 1
+custom_data_layer_1/name = "type"
+custom_data_layer_1/type = 4
+sources/0 = SubResource("TileSetAtlasSource_yqjtg")
+sources/1 = SubResource("TileSetAtlasSource_p57ef")
