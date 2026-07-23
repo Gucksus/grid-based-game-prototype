@@ -1,3 +1,4 @@
+class_name HightlightMap
 extends CustomTileMap 
 
 func hightlight_tile(pos: Vector2i):

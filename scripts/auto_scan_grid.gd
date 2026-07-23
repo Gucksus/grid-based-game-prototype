@@ -1,10 +1,10 @@
 extends Node
 
-var state_grid: Dictionary[Vector2i, Cell] = {}
+var state_grid: Dictionary[Vector2i, StateCell] = {}
 var choosing_tiles : Array[Vector2i] = []
-var hight_light_map: CustomTileMap
-var rotating_map: CustomTileMap
-var grid_map: CustomTileMap
+var hight_light_map: HightlightMap
+var rotating_map: RotatingMap
+var grid_map: CustomGridMap
 
 # Initialize the grid from the game script.
 func init_grid(grid_map: TileMapLayer, hight_light_map: TileMapLayer, rotating_map: TileMapLayer) -> void:
@@ -20,13 +20,13 @@ func first_walkable_tile() -> Vector2i:
 	return Vector2i.ZERO
 
 # Builds the state grid from the given tile map at initialization.
-func build_from_tilemap():
+func build_from_tilemap() -> void:
 	var grid_size := grid_map.get_grid_size()
 	for y in grid_size.y:
 		for x in grid_size.x:
 			var pos := Vector2i(x, y)
 			if grid_map.get_cell_tile_data(pos):
-				state_grid[pos] = Cell.new(grid_map.get_cell_tile_data(pos))
+				state_grid[pos] = StateCell.new(grid_map.get_cell_tile_data(pos))
 
 func is_walkable(pos: Vector2i) -> bool:
 	return false if not state_grid.has(pos) else state_grid[pos].walkable 
@@ -37,7 +37,7 @@ func is_spinnable(pos: Vector2i) -> bool:
 func is_being_chose(pos: Vector2i) -> bool:
 	return false if not state_grid.has(pos) else state_grid[pos].being_chose
 
-func flood_fill(src: Vector2i):
+func flood_fill(src: Vector2i) -> void:
 	if is_being_chose(src) or not is_walkable(src):
 		return
 	elif not is_being_chose(src) and is_walkable(src):
@@ -48,22 +48,22 @@ func flood_fill(src: Vector2i):
 		flood_fill(src + Vector2i(0,1))
 		flood_fill(src + Vector2i(1,0))
 
-#func choosing_grid_to_rotate():
-	#for tile_pos in choosing_tiles:
-		#
-
-func update_choosing_tiles():
+func update_choosing_tiles() -> void:
 	choosing_tiles.clear()
 	for tile_pos in state_grid:
 			if is_being_chose(tile_pos):
 				choosing_tiles.append(tile_pos)
 
-func move_state(from: Vector2i,to :Vector2i):
-	state_grid[to] = state_grid[from]
+func move_chosen_tiles_to_rotating_map() -> void:
+	for tile_pos in choosing_tiles:
+		rotating_map.transfer_tile_from_grid(grid_map, tile_pos)
+
+func move_state(from: Vector2i,to :Vector2i) -> void:
+	state_grid[to] = state_grid.get(from)
 	state_grid.erase(from)
 
-func move_tile(from: Vector2i,to :Vector2i):
-	grid_map.move_tile(from, to)
+func move_tile(from: Vector2i,to :Vector2i) -> void:
+	rotating_map.move_tile(from, to)
 	hight_light_map.move_tile(from, to)
 	move_state(from, to)
 

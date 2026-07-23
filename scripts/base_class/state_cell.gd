@@ -1,4 +1,4 @@
-class_name Cell
+class_name StateCell
 
 var walkable: bool
 var being_chose: bool

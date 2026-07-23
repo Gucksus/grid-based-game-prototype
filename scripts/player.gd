@@ -16,7 +16,7 @@ var angle_inputs = {
 var ini_rotate_point := Vector2i(8, 4)
 
 enum States {MOVING, CHOOSING_DIRECTION, CHOOSING_ROTATION}
-var current_state := States.MOVING 
+var current_state := States.MOVING
 
 @onready var arrow: Sprite2D = $Arrow
 @onready var grid_map: TileMapLayer = $"../GridMap"
@@ -69,6 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				AutoScanGrid.flood_fill(grid_pos + arrow.get_meta("directional_vector"))
 				AutoScanGrid.state_grid[grid_pos].being_chose = false
 				AutoScanGrid.update_choosing_tiles()
+				AutoScanGrid.move_chosen_tiles_to_rotating_map()
 				current_state = States.CHOOSING_ROTATION
 			
 			for input in angle_inputs:
@@ -76,7 +77,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					arrow.position = angle_inputs[input][1]
 					arrow.rotation = angle_inputs[input][0]
 					arrow.set_meta("directional_vector", directional_inputs[input])
-					
+
 		States.CHOOSING_ROTATION:
 			if event.is_action_pressed("interact"):
 				AutoScanGrid.spin_tile(grid_pos)
