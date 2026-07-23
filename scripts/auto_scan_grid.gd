@@ -5,6 +5,7 @@ var choosing_tiles : Array[Vector2i] = []
 var hight_light_map: HightlightMap
 var rotating_map: RotatingMap
 var grid_map: CustomGridMap
+var placeholder_map: RotatingMap = RotatingMap.new()
 
 # Initialize the grid from the game script.
 func init_grid(grid_map: TileMapLayer, hight_light_map: TileMapLayer, rotating_map: TileMapLayer) -> void:
@@ -62,16 +63,18 @@ func move_state(from: Vector2i,to :Vector2i) -> void:
 	state_grid[to] = state_grid.get(from)
 	state_grid.erase(from)
 
-func move_tile(from: Vector2i,to :Vector2i) -> void:
-	rotating_map.move_tile(from, to)
-	hight_light_map.move_tile(from, to)
-	move_state(from, to)
-
 func spin_tile(pivot: Vector2i) -> void:
+	placeholder_map.clear()
 	for i in range(choosing_tiles.size()):
 		var tar = choosing_tiles[i]
 		var new_pos: Vector2i
 		new_pos.x = roundi(pivot.x + (tar.x - pivot.x) * cos(PI / 2) - (tar.y - pivot.y) * sin(PI / 2))
 		new_pos.y = roundi(pivot.y + (tar.x - pivot.x) * sin(PI / 2) + (tar.y - pivot.y) * cos(PI / 2))
-		move_tile(tar, new_pos)
 		choosing_tiles[i] = new_pos
+		move_state(tar, new_pos)
+		placeholder_map.transfer_tile_from_grid(rotating_map, tar, new_pos)
+	rotating_map.clear()
+	hight_light_map.clear()
+	for i in range(choosing_tiles.size()):
+		rotating_map.transfer_tile_from_grid(placeholder_map, choosing_tiles[i])
+		hight_light_map.hightlight_tile(choosing_tiles[i])
