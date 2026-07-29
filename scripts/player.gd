@@ -69,7 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				AutoScanGrid.flood_fill(grid_pos + arrow.get_meta("directional_vector"))
 				AutoScanGrid.state_grid[grid_pos].being_chose = false
 				AutoScanGrid.update_choosing_tiles()
-				AutoScanGrid.move_chosen_tiles_to_rotating_map()
+				AutoScanGrid.move_chosen_tiles_to_rotating()
 				current_state = States.CHOOSING_ROTATION
 			
 			for input in angle_inputs:
@@ -81,3 +81,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		States.CHOOSING_ROTATION:
 			if event.is_action_pressed("interact"):
 				AutoScanGrid.spin_tile(grid_pos)
+			if event.is_action_pressed("confirm"):
+				AutoScanGrid.confirm_rotation()
+				current_state = States.MOVING
