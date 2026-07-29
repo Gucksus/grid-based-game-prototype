@@ -61,6 +61,7 @@ func move_chosen_tiles_to_rotating() -> void:
 	for tile_pos in choosing_tiles:
 		rotating_map.get_tile_from_grid(grid_map, tile_pos)
 		rotating_state_grid[tile_pos] = state_grid[tile_pos]
+		state_grid.erase(tile_pos)
 
 func transfer_to_placeholder(from: Vector2i, to: Vector2i) -> void:
 	placeholder_state_grid[to] = rotating_state_grid[from]
@@ -92,4 +93,5 @@ func confirm_rotation() -> void:
 	for pos in choosing_tiles:
 		grid_map.get_tile_from_grid(rotating_map, pos)
 		state_grid[pos] = rotating_state_grid[pos]
+		state_grid[pos].being_chose = false
 	hight_light_map.clear()
