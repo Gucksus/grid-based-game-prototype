@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3jwdwvkqfk64"
-path="res://.godot/imported/walkTile.png-b31ee9932965aaf0e3566c858c7b20fe.ctex"
+uid="uid://d3vtdpbrhnpjq"
+path="res://.godot/imported/spin_tile.png-7887909debcc9be07aa92a269a9333bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aseprite/walkTile.png"
-dest_files=["res://.godot/imported/walkTile.png-b31ee9932965aaf0e3566c858c7b20fe.ctex"]
+source_file="res://Asset/Aseprite/spin_tile.png"
+dest_files=["res://.godot/imported/spin_tile.png-7887909debcc9be07aa92a269a9333bc.ctex"]
 
 [params]
 

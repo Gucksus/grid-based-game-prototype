@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3vtdpbrhnpjq"
-path="res://.godot/imported/spin_tile.png-1460b7a079259decde862242d82fe7a1.ctex"
+uid="uid://be8xp4uatc33p"
+path="res://.godot/imported/hightlight_tile.png-2454fce20712d15805198dc4a1f01455.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aseprite/spin_tile.png"
-dest_files=["res://.godot/imported/spin_tile.png-1460b7a079259decde862242d82fe7a1.ctex"]
+source_file="res://Asset/Aseprite/hightlight_tile.png"
+dest_files=["res://.godot/imported/hightlight_tile.png-2454fce20712d15805198dc4a1f01455.ctex"]
 
 [params]
 

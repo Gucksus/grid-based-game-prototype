@@ -13,11 +13,10 @@ config_version=5
 config/name="grid-based prototype"
 run/main_scene="uid://c5yrdfbofmv7"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
 
 [autoload]
 
-AutoScanGrid="*uid://dob8ewknwgnx5"
+MapManager="*uid://dob8ewknwgnx5"
 
 [display]
 

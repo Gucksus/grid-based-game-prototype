@@ -1,44 +1,44 @@
 [gd_scene format=4 uid="uid://c5yrdfbofmv7"]
 
-[ext_resource type="Script" uid="uid://l62x0ul5ymhw" path="res://scripts/game.gd" id="1_iywne"]
-[ext_resource type="PackedScene" uid="uid://dt4mah86u0754" path="res://scenes/player.tscn" id="2_yqjtg"]
-[ext_resource type="Script" uid="uid://momif01m25sv" path="res://scripts/player.gd" id="3_lbhrr"]
-[ext_resource type="Script" uid="uid://cmc8dpxcchpv1" path="res://scenes/grid_map.gd" id="4_gee14"]
-[ext_resource type="Texture2D" uid="uid://be8xp4uatc33p" path="res://Aseprite/hightlight_tile.png" id="4_p57ef"]
-[ext_resource type="TileSet" uid="uid://bvoxxby17ndd" path="res://resource/grid_tile_set.tres" id="4_u5sy4"]
-[ext_resource type="Script" uid="uid://ctyslh4u6q2fg" path="res://scripts/rotating_map.gd" id="5_gee14"]
-[ext_resource type="Script" uid="uid://dw3470vyfiks0" path="res://scripts/hight_light_map.gd" id="5_u5sy4"]
+[ext_resource type="Script" uid="uid://l62x0ul5ymhw" path="res://Entities/Game/game.gd" id="1_3x85p"]
+[ext_resource type="Texture2D" uid="uid://be8xp4uatc33p" path="res://Asset/Aseprite/hightlight_tile.png" id="2_uug1b"]
+[ext_resource type="Script" uid="uid://dw3470vyfiks0" path="res://Entities/TileMap/HighlightMap/hight_light_map.gd" id="3_0a2jx"]
+[ext_resource type="TileSet" uid="uid://bvoxxby17ndd" path="res://Asset/TileSet/grid_tile_set.tres" id="4_ac1je"]
+[ext_resource type="Script" uid="uid://ctyslh4u6q2fg" path="res://Entities/TileMap/RotatingMap/rotating_map.gd" id="5_xww2m"]
+[ext_resource type="Script" uid="uid://cmc8dpxcchpv1" path="res://Entities/TileMap/MainMap/grid_map.gd" id="6_fruy1"]
+[ext_resource type="PackedScene" uid="uid://dt4mah86u0754" path="res://Entities/Player/player.tscn" id="7_48637"]
+[ext_resource type="Script" uid="uid://momif01m25sv" path="res://Entities/Player/player.gd" id="8_7psqa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5sy4"]
-texture = ExtResource("4_p57ef")
+texture = ExtResource("2_uug1b")
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_iywne"]
 sources/0 = SubResource("TileSetAtlasSource_u5sy4")
 
 [node name="Game" type="Node2D" unique_id=786702675]
-script = ExtResource("1_iywne")
+script = ExtResource("1_3x85p")
 
 [node name="HightLightMap" type="TileMapLayer" parent="." unique_id=2054780262]
 z_index = 1
 tile_set = SubResource("TileSet_iywne")
-script = ExtResource("5_u5sy4")
+script = ExtResource("3_0a2jx")
 
 [node name="RotatingMap" type="TileMapLayer" parent="." unique_id=31306580]
-tile_set = ExtResource("4_u5sy4")
-script = ExtResource("5_gee14")
+tile_set = ExtResource("4_ac1je")
+script = ExtResource("5_xww2m")
 
 [node name="GridMap" type="TileMapLayer" parent="." unique_id=983767496]
 z_index = -1
 use_parent_material = true
 tile_map_data = PackedByteArray("AAADAAYAAAAAAAAAAAAEAAYAAQAAAAAAAAAGAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAACAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAJAAYAAAAAAAAAAAAJAAcAAAAAAAAAAAAKAAcAAAAAAAAAAAALAAgAAAAAAAAAAAAGAAcAAAAAAAAAAAAGAAgAAAAAAAAAAAAKAAgAAAAAAAAAAAAMAAgAAAAAAAAAAAANAAgAAAAAAAAAAAAOAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAARAAgAAAAAAAAAAAASAAgAAAAAAAAAAAATAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAAUAAkAAAAAAAAAAAAUAAoAAAAAAAAAAAAUAAsAAAAAAAAAAAAGAAkAAAAAAAAAAAAGAAoAAAAAAAAAAAAGAAsAAAAAAAAAAAAFAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAAEAAwAAAAAAAAAAAAFAAwAAAAAAAAAAAAGAAwAAAAAAAAAAAA=")
-tile_set = ExtResource("4_u5sy4")
-script = ExtResource("4_gee14")
+tile_set = ExtResource("4_ac1je")
+script = ExtResource("6_fruy1")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1046665203]
 anchor_mode = 0
 zoom = Vector2(3, 3)
 
-[node name="CharacterBody2D" parent="." unique_id=1408601688 instance=ExtResource("2_yqjtg")]
+[node name="CharacterBody2D" parent="." unique_id=1408601688 instance=ExtResource("7_48637")]
 position = Vector2(64, 96)
-script = ExtResource("3_lbhrr")
+script = ExtResource("8_7psqa")

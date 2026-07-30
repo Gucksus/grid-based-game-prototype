@@ -28,26 +28,26 @@ var grid_pos: Vector2i
 func _ready() -> void:
 	await get_parent().ready
 	grid_pos = grid_map.local_to_map(position)
-	if not AutoScanGrid.is_walkable(grid_pos):
-		grid_pos = AutoScanGrid.first_walkable_tile()
+	if not MapManager.is_walkable(grid_pos):
+		grid_pos = MapManager.first_walkable_tile()
 	position = grid_map.map_to_local(grid_pos) - Vector2(8, 8)
 	arrow.visible = false
 
 func try_move_to(pos: Vector2i):
-	if AutoScanGrid.is_walkable(pos):
+	if MapManager.is_walkable(pos):
 		grid_pos = pos
 		position = grid_map.map_to_local(grid_pos) - Vector2(8, 8)
-		print(AutoScanGrid.state_grid[grid_pos])
+		print(MapManager.state_grid[grid_pos])
 
 func _unhandled_input(event: InputEvent) -> void:
 	match current_state:
 		States.MOVING:
-			if event.is_action_pressed("interact") and AutoScanGrid.is_spinnable(grid_pos):
+			if event.is_action_pressed("interact") and MapManager.is_spinnable(grid_pos):
 				current_state = States.CHOOSING_DIRECTION
 				
 				# Arrow position and angle set to a walkable tile before making it visible.
 				for input in directional_inputs:
-					if AutoScanGrid.is_walkable(grid_pos + directional_inputs[input]):
+					if MapManager.is_walkable(grid_pos + directional_inputs[input]):
 						arrow.position = angle_inputs[input][1]
 						arrow.rotation = angle_inputs[input][0]
 						arrow.set_meta("directional_vector", directional_inputs[input])
@@ -65,22 +65,22 @@ func _unhandled_input(event: InputEvent) -> void:
 			if event.is_action_pressed("interact"):
 				arrow.visible = false
 				# Temporarily set the spinning tile to true so that flood fill works correctly.
-				AutoScanGrid.state_grid[grid_pos].being_chose = true
-				AutoScanGrid.flood_fill(grid_pos + arrow.get_meta("directional_vector"))
-				AutoScanGrid.state_grid[grid_pos].being_chose = false
-				AutoScanGrid.update_choosing_tiles()
-				AutoScanGrid.move_chosen_tiles_to_rotating()
+				MapManager.state_grid[grid_pos].being_chose = true
+				MapManager.flood_fill(grid_pos + arrow.get_meta("directional_vector"))
+				MapManager.state_grid[grid_pos].being_chose = false
+				MapManager.update_choosing_tiles()
+				MapManager.move_chosen_tiles_to_rotating()
 				current_state = States.CHOOSING_ROTATION
 			
 			for input in angle_inputs:
-				if event.is_action_pressed(input) and AutoScanGrid.is_walkable(grid_pos + directional_inputs[input]):
+				if event.is_action_pressed(input) and MapManager.is_walkable(grid_pos + directional_inputs[input]):
 					arrow.position = angle_inputs[input][1]
 					arrow.rotation = angle_inputs[input][0]
 					arrow.set_meta("directional_vector", directional_inputs[input])
 
 		States.CHOOSING_ROTATION:
 			if event.is_action_pressed("interact"):
-				AutoScanGrid.spin_tile(grid_pos)
+				MapManager.spin_tile(grid_pos)
 			if event.is_action_pressed("confirm"):
-				AutoScanGrid.confirm_rotation()
+				MapManager.confirm_rotation()
 				current_state = States.MOVING

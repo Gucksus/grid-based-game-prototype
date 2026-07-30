@@ -5,5 +5,5 @@ extends Node2D
 @onready var rotating_map: TileMapLayer = $RotatingMap
 
 func _ready() -> void:
-	AutoScanGrid.init_grid(grid_map, hight_light_map, rotating_map)
-	AutoScanGrid.build_from_tilemap()
+	MapManager.init_grid(grid_map, hight_light_map, rotating_map)
+	MapManager.build_from_tilemap()
