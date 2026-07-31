@@ -19,24 +19,22 @@ enum States {MOVING, CHOOSING_DIRECTION, CHOOSING_ROTATION}
 var current_state := States.MOVING
 
 @onready var arrow: Sprite2D = $Arrow
-@onready var grid_map: TileMapLayer = $"../GridMap"
-@onready var hight_light_map: TileMapLayer = $"../HightLightMap"
 
 # The position of the player on the logic grid.
 var grid_pos: Vector2i
 
 func _ready() -> void:
 	await get_parent().ready
-	grid_pos = grid_map.local_to_map(position)
+	grid_pos = MapManager.local_to_map(position)
 	if not MapManager.is_walkable(grid_pos):
 		grid_pos = MapManager.first_walkable_tile()
-	position = grid_map.map_to_local(grid_pos) - Vector2(8, 8)
+	position = MapManager.map_to_local(grid_pos) - Vector2(8, 8)
 	arrow.visible = false
 
 func try_move_to(pos: Vector2i):
 	if MapManager.is_walkable(pos):
 		grid_pos = pos
-		position = grid_map.map_to_local(grid_pos) - Vector2(8, 8)
+		position = MapManager.map_to_local(grid_pos) - Vector2(8, 8)
 		print(MapManager.state_grid[grid_pos])
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -1,19 +1,20 @@
 extends Node
 
-var state_grid: Dictionary[Vector2i, StateCell] = {}
+var state_grid: Dictionary[Vector2i, Cell] = {}
+var placeholder_state_grid: Dictionary[Vector2i, Cell] = {}
+var rotating_state_grid: Dictionary[Vector2i, Cell] = {}
 var choosing_tiles : Array[Vector2i] = []
-var hight_light_map: HightlightMap
-var rotating_map: RotatingMap
-var grid_map: CustomGridMap
-var placeholder_map: RotatingMap = RotatingMap.new()
-var placeholder_state_grid: Dictionary[Vector2i, StateCell] = {}
-var rotating_state_grid: Dictionary[Vector2i, StateCell] = {}
+var grid_map: CustomTileMap
 
 # Initialize the grid from the game script.
-func init_grid(grid_map: TileMapLayer, hight_light_map: TileMapLayer, rotating_map: TileMapLayer) -> void:
+func init_grid(grid_map: TileMapLayer) -> void:
 	self.grid_map = grid_map
-	self.hight_light_map = hight_light_map
-	self.rotating_map = rotating_map
+	
+func map_to_local(value: Vector2i) -> Vector2:
+	return grid_map.map_to_local(value)
+	
+func local_to_map(value: Vector2i) -> Vector2i:
+	return grid_map.local_to_map(value)
 
 # Returns the first walkable tile.
 func first_walkable_tile() -> Vector2i:
@@ -29,7 +30,7 @@ func build_from_tilemap() -> void:
 		for x in grid_size.x:
 			var pos := Vector2i(x, y)
 			if grid_map.get_cell_tile_data(pos):
-				state_grid[pos] = StateCell.new(grid_map.get_cell_tile_data(pos))
+				state_grid[pos] = Cell.new(grid_map, pos)
 
 func is_walkable(pos: Vector2i) -> bool:
 	return false if not state_grid.has(pos) else state_grid[pos].walkable
@@ -45,7 +46,6 @@ func flood_fill(src: Vector2i) -> void:
 		return
 	elif not is_being_chose(src) and is_walkable(src):
 		state_grid[src].being_chose = true
-		hight_light_map.hightlight_tile(src)
 		flood_fill(src - Vector2i(0,1))
 		flood_fill(src - Vector2i(1,0))
 		flood_fill(src + Vector2i(0,1))
@@ -59,20 +59,16 @@ func update_choosing_tiles() -> void:
 
 func move_chosen_tiles_to_rotating() -> void:
 	for tile_pos in choosing_tiles:
-		rotating_map.get_tile_from_grid(grid_map, tile_pos)
 		rotating_state_grid[tile_pos] = state_grid[tile_pos]
 		state_grid.erase(tile_pos)
 
 func transfer_to_placeholder(from: Vector2i, to: Vector2i) -> void:
 	placeholder_state_grid[to] = rotating_state_grid[from]
 	rotating_state_grid.erase(from)
-	placeholder_map.get_tile_from_grid(rotating_map, from, to)
 
 func transfer_from_placeholder() -> void:
 	for i in range(choosing_tiles.size()):
-		rotating_map.get_tile_from_grid(placeholder_map, choosing_tiles[i])
 		rotating_state_grid[choosing_tiles[i]] = placeholder_state_grid[choosing_tiles[i]]
-		hight_light_map.hightlight_tile(choosing_tiles[i])
 
 func spin_tile(pivot: Vector2i) -> void:
 	placeholder_map.clear()
