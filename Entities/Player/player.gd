@@ -66,10 +66,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				MapManager.state_grid[grid_pos].being_chose = true
 				MapManager.flood_fill(grid_pos + arrow.get_meta("directional_vector"))
 				MapManager.state_grid[grid_pos].being_chose = false
-				MapManager.update_choosing_tiles()
 				MapManager.move_chosen_tiles_to_rotating()
 				MapManager.initial_spinning()
 				current_state = States.CHOOSING_ROTATION
+				return
 			
 			for input in angle_inputs:
 				if event.is_action_pressed(input) and MapManager.is_walkable(grid_pos + directional_inputs[input]):

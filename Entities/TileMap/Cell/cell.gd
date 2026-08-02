@@ -1,13 +1,15 @@
 class_name Cell
 
 var walkable: bool
-var being_chose: bool
+var being_chose: bool 
 var type: String
 var source_id: int
 var alternative_source_id: int
 var atlas_coords: Vector2i 
 
-func _init(tile_map: TileMapLayer, coords: Vector2i) -> void:
+func _init(tile_map: TileMapLayer = null, coords: Vector2i = Vector2i(-1, -1)) -> void:
+	if !tile_map:
+		return
 	source_id = tile_map.get_cell_source_id(coords)
 	alternative_source_id = tile_map.get_cell_alternative_tile(coords)
 	atlas_coords = tile_map.get_cell_atlas_coords(coords)
@@ -21,3 +23,13 @@ func _init(tile_map: TileMapLayer, coords: Vector2i) -> void:
 
 func _to_string() -> String:
 	return "Tilemap = {Src_id: %d, Atlas coords: %s}" % [source_id, atlas_coords]
+
+func clone() -> Cell:
+	var clone := Cell.new()
+	clone.walkable = self.walkable
+	clone.alternative_source_id = self.alternative_source_id
+	clone.atlas_coords = self.atlas_coords
+	clone.being_chose = self.being_chose
+	clone.source_id = self.source_id
+	clone.type = self.type
+	return clone
