@@ -72,7 +72,6 @@ func move_chosen_tiles_to_rotating() -> void:
 
 func transfer_to_placeholder(from: Vector2i, to: Vector2i) -> void:
 	placeholder_state_grid[to] = rotating_state_grid[from]
-	rotating_state_grid.erase(from)
 
 func transfer_from_placeholder() -> void:
 	for tile_pos in placeholder_state_grid:
@@ -91,6 +90,7 @@ func spin_tile(pivot: Vector2i) -> void:
 		new_pos.x = roundi(pivot.x + (src.x - pivot.x) * cos(PI / 2) - (src.y - pivot.y) * sin(PI / 2))
 		new_pos.y = roundi(pivot.y + (src.x - pivot.x) * sin(PI / 2) + (src.y - pivot.y) * cos(PI / 2))
 		transfer_to_placeholder(src, new_pos)
+	rotating_state_grid.clear()
 	transfer_from_placeholder()
 	update_state_onto_main_map()
 
