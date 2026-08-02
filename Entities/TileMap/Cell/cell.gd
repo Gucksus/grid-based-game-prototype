@@ -20,4 +20,4 @@ func _init(tile_map: TileMapLayer, coords: Vector2i) -> void:
 		type = "null"
 
 func _to_string() -> String:
-	return "State = {Walkable: %s, Type: %s}" % [walkable, type]
+	return "Tilemap = {Src_id: %d, Atlas coords: %s}" % [source_id, atlas_coords]

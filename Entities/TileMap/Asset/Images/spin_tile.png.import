@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d3vtdpbrhnpjq"
-path="res://.godot/imported/spin_tile.png-7887909debcc9be07aa92a269a9333bc.ctex"
+path="res://.godot/imported/spin_tile.png-4fcd2ea7c34e4ad2e803e91c1fee2787.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Asset/Aseprite/spin_tile.png"
-dest_files=["res://.godot/imported/spin_tile.png-7887909debcc9be07aa92a269a9333bc.ctex"]
+source_file="res://Entities/TileMap/Asset/Images/spin_tile.png"
+dest_files=["res://.godot/imported/spin_tile.png-4fcd2ea7c34e4ad2e803e91c1fee2787.ctex"]
 
 [params]
 

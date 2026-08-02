@@ -68,6 +68,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				MapManager.state_grid[grid_pos].being_chose = false
 				MapManager.update_choosing_tiles()
 				MapManager.move_chosen_tiles_to_rotating()
+				MapManager.initial_spinning()
 				current_state = States.CHOOSING_ROTATION
 			
 			for input in angle_inputs:
@@ -80,5 +81,5 @@ func _unhandled_input(event: InputEvent) -> void:
 			if event.is_action_pressed("interact"):
 				MapManager.spin_tile(grid_pos)
 			if event.is_action_pressed("confirm"):
-				MapManager.confirm_rotation()
+				MapManager.confirm_spin()
 				current_state = States.MOVING
