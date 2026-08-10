@@ -1,4 +1,6 @@
-extends CharacterBody2D
+extends GridEntities
+
+signal moved(new_pos: Vector2i)
 
 var directional_inputs = {
 	'up': Vector2i.UP,
@@ -20,21 +22,15 @@ var current_state := States.MOVING
 
 @onready var arrow: Sprite2D = $Arrow
 
-# The position of the player on the logic grid.
-var grid_pos: Vector2i
-
 func _ready() -> void:
-	await get_parent().ready
-	grid_pos = MapManager.local_to_map(position)
-	if not MapManager.is_walkable(grid_pos):
-		grid_pos = MapManager.first_walkable_tile()
-	position = MapManager.map_to_local(grid_pos) - Vector2(8, 8)
+	super._ready()
 	arrow.visible = false
 
 func try_move_to(pos: Vector2i):
 	if MapManager.is_walkable(pos):
 		grid_pos = pos
-		position = MapManager.map_to_local(grid_pos) - Vector2(8, 8)
+		set_position_from_grid_pos(grid_pos)
+		moved.emit(pos)
 		print(MapManager.state_grid[grid_pos])
 
 func _unhandled_input(event: InputEvent) -> void:

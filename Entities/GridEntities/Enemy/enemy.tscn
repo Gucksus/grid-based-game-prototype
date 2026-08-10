@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dd2qiwwwdeky7"]
+
+[ext_resource type="Texture2D" uid="uid://dwdo2byu56eqp" path="res://Entities/GridEntities/Enemy/Art/Sprite.png" id="1_7k104"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7xaro"]
+size = Vector2(16, 16)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=459852499]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1717609425]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_7xaro")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1813390394]
+position = Vector2(8, 8)
+texture = ExtResource("1_7k104")
