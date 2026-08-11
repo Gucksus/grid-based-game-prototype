@@ -99,3 +99,38 @@ func confirm_spin() -> void:
 		state_grid[tile_pos] = rotating_state_grid[tile_pos]
 		state_grid[tile_pos].being_chose = false
 	main_map.get_parent().remove_child(highlight_map)
+
+func neighboring_tiles(src: Vector2i) -> Array[Vector2i]:
+	var neighboring_tiles: Array[Vector2i] = []
+	for x in [-1, 1]:
+		if not is_walkable(Vector2i(src.x + x, src.y)):
+			continue
+		neighboring_tiles.push_back(Vector2i(src.x + x, src.y))
+	for y in [-1, 1]:
+		if not is_walkable(Vector2i(src.x, src.y + y)):
+			continue
+		neighboring_tiles.push_back(Vector2i(src.x, src.y + y))
+	return neighboring_tiles
+
+func the_distance_between_2_tiles(src: Vector2i, des: Vector2i):
+	var queue: Array = []
+	var visited: Dictionary[Vector2i, bool] = {}
+	var distance: Dictionary[Vector2i, int] = {}
+
+	for tile_pos in state_grid:
+		visited[tile_pos] = false
+		distance[tile_pos] = 0
+	visited[src] = true
+	queue.push_back(src)
+
+	while not queue.is_empty() and not visited[des]:
+		var current_tile = queue.pop_front()
+		var current_neighbor_tiles = neighboring_tiles(current_tile)
+		for tile_pos in current_neighbor_tiles:
+			if visited[tile_pos]:
+				continue
+			visited[tile_pos] = true
+			distance[tile_pos] = distance[current_tile] + 1
+			queue.push_back(tile_pos)
+
+	return distance[des]

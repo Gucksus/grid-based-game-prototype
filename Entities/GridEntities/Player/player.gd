@@ -30,8 +30,7 @@ func try_move_to(pos: Vector2i):
 	if MapManager.is_walkable(pos):
 		grid_pos = pos
 		set_position_from_grid_pos(grid_pos)
-		moved.emit(pos)
-		print(MapManager.state_grid[grid_pos])
+		moved.emit()
 
 func _unhandled_input(event: InputEvent) -> void:
 	match current_state:
