@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://dt4mah86u0754"]
 
 [ext_resource type="Texture2D" uid="uid://du8sdoniogr3w" path="res://Entities/GridEntities/Player/Art/player.png" id="1_3uyv8"]
-[ext_resource type="Texture2D" uid="uid://b60x16sdwcr40" path="res://Entities/GridEntities/Player/Art/arrow.png" id="2_lu8i8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yqjtg"]
 size = Vector2(16, 16)
@@ -15,10 +14,3 @@ shape = SubResource("RectangleShape2D_yqjtg")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=668184515]
 texture = ExtResource("1_3uyv8")
 centered = false
-
-[node name="Arrow" type="Sprite2D" parent="." unique_id=333153366]
-position = Vector2(8, -8)
-texture = ExtResource("2_lu8i8")
-centered = false
-offset = Vector2(-8, -8)
-metadata/directional_pointer = Vector2i(0, -1)
