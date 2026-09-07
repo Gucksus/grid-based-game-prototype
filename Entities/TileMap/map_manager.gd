@@ -2,6 +2,12 @@ extends Node
 
 var state_grid: Dictionary[Vector2i, Cell] = {}
 var main_map: CustomTileMap
+var NEXT_POS_SPIN: Dictionary[Vector2i, Vector2i] = {
+	Vector2i(0, -1): Vector2i(1, 0),
+	Vector2i(1, 0): Vector2i(0, 1),
+	Vector2i(0, 1): Vector2i(-1 ,0),
+	Vector2i(-1, 0): Vector2i(0, -1)
+}
 
 # Initialize the grid from the game script.
 func init_grid(main_map: CustomTileMap) -> void:
@@ -41,24 +47,23 @@ func update_state_onto_main_map() -> void:
 		main_map.set_cell(cell_pos, state_grid[cell_pos].source_id, state_grid[cell_pos].atlas_coords, state_grid[cell_pos].alternative_source_id)
 
 func spin_tile(pivot: Vector2i) -> void:
-	var neigboring_tiles = neighboring_tiles(pivot)
-	var first_tile = state_grid[neigboring_tiles[0]]
-	for i in neigboring_tiles.size() - 1:
-		state_grid[neigboring_tiles[i]] = state_grid[neigboring_tiles[i + 1]]
-	state_grid[neigboring_tiles[neigboring_tiles.size() - 1]] = first_tile
+	var neigboring_cell_position := neighboring_cell_position(pivot)
+	var last_neighbor_placeholder := state_grid[neigboring_cell_position.back()]
+	state_grid.erase(neigboring_cell_position.back())
+	for i in range(neigboring_cell_position.size() - 2, -1, -1):
+		state_grid[NEXT_POS_SPIN[neigboring_cell_position[i] - pivot] + pivot] = state_grid[neigboring_cell_position[i]]
+		state_grid.erase(neigboring_cell_position[i])
+	state_grid[NEXT_POS_SPIN[neigboring_cell_position.back() - pivot] + pivot] = last_neighbor_placeholder
 	update_state_onto_main_map()
+	print(neigboring_cell_position)
 
-func neighboring_tiles(src: Vector2i) -> Array[Vector2i]:
-	var neighboring_tiles: Array[Vector2i] = []
-	for x in [-1, 1]:
-		if not is_walkable(Vector2i(src.x + x, src.y)):
-			continue
-		neighboring_tiles.push_back(Vector2i(src.x + x, src.y))
-	for y in [-1, 1]:
-		if not is_walkable(Vector2i(src.x, src.y + y)):
-			continue
-		neighboring_tiles.push_back(Vector2i(src.x, src.y + y))
-	return neighboring_tiles
+func neighboring_cell_position(src: Vector2i) -> Array[Vector2i]:
+	var neighboring_cell_position: Array[Vector2i] = []
+	var neighboring_cell_direction := [Vector2i(0, -1), Vector2i(1, 0), Vector2i(0, 1), Vector2i(-1, 0)]
+	for direction in neighboring_cell_direction:
+		if is_walkable(src + direction):
+			neighboring_cell_position.push_back(src + direction)
+	return neighboring_cell_position
 
 func the_distance_between_2_tiles(src: Vector2i, des: Vector2i):
 	var queue: Array = []
@@ -72,13 +77,13 @@ func the_distance_between_2_tiles(src: Vector2i, des: Vector2i):
 	queue.push_back(src)
 
 	while not queue.is_empty() and not visited[des]:
-		var current_tile = queue.pop_front()
-		var current_neighbor_tiles = neighboring_tiles(current_tile)
-		for tile_pos in current_neighbor_tiles:
-			if visited[tile_pos]:
+		var current_cell = queue.pop_front()
+		var current_neighbor_cell = neighboring_cell_position(current_cell)
+		for cell_pos in current_neighbor_cell:
+			if visited[cell_pos]:
 				continue
-			visited[tile_pos] = true
-			distance[tile_pos] = distance[current_tile] + 1
-			queue.push_back(tile_pos)
+			visited[cell_pos] = true
+			distance[cell_pos] = distance[current_cell] + 1
+			queue.push_back(cell_pos)
 
 	return distance[des]

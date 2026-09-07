@@ -23,13 +23,3 @@ func _init(tile_map: TileMapLayer = null, coords: Vector2i = Vector2i(-1, -1)) -
 
 func _to_string() -> String:
 	return "Tilemap = {Src_id: %d, Atlas coords: %s}" % [source_id, atlas_coords]
-
-func clone() -> Cell:
-	var clone := Cell.new()
-	clone.walkable = self.walkable
-	clone.alternative_source_id = self.alternative_source_id
-	clone.atlas_coords = self.atlas_coords
-	clone.being_chose = self.being_chose
-	clone.source_id = self.source_id
-	clone.type = self.type
-	return clone

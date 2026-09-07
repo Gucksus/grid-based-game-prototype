@@ -33,5 +33,8 @@ func _unhandled_input(event: InputEvent) -> void:
 					try_move_to(new_pos)
 
 		States.CHOOSING_ROTATION:
+			if event.is_action_pressed("confirm"):
+				current_state = States.MOVING
+				return
 			if event.is_action_pressed("interact"):
 				MapManager.spin_tile(grid_pos)
