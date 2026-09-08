@@ -19,3 +19,10 @@ func _ready() -> void:
 	if not MapManager.is_walkable(grid_pos):
 		grid_pos = MapManager.first_walkable_tile()
 	set_position_from_grid_pos(grid_pos)
+
+func teleport_to(des: Vector2i) -> void:
+	if MapManager.state_grid.has(grid_pos):
+		MapManager.state_grid[grid_pos].occupant = null
+	MapManager.state_grid[des].occupant = self
+	grid_pos = des
+	set_position_from_grid_pos(grid_pos)

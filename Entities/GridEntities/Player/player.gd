@@ -16,8 +16,7 @@ var current_state := States.MOVING
 
 func try_move_to(pos: Vector2i):
 	if MapManager.is_walkable(pos):
-		grid_pos = pos
-		set_position_from_grid_pos(grid_pos)
+		teleport_to(pos)
 		moved.emit()
 
 func _unhandled_input(event: InputEvent) -> void:

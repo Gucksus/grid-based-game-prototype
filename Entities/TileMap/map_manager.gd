@@ -56,14 +56,23 @@ func init_spin(pivot_pos: Vector2i) -> void:
 		state_grid[pos].is_being_chose = true
 	update_state_onto_main_map()
 
+func move_cell(src: Vector2i, des: Vector2i):
+	state_grid[des] = state_grid[src]
+	state_grid.erase(src)
+	if state_grid[des].occupant:
+		state_grid[des].occupant.teleport_to(des)
+
 func spin_tile(pivot: Vector2i) -> void:
 	var neigboring_cell_position := neighboring_cell_position(pivot)
 	var last_neighbor_placeholder := state_grid[neigboring_cell_position.back()]
 	state_grid.erase(neigboring_cell_position.back())
 	for i in range(neigboring_cell_position.size() - 2, -1, -1):
-		state_grid[NEXT_POS_SPIN[neigboring_cell_position[i] - pivot] + pivot] = state_grid[neigboring_cell_position[i]]
-		state_grid.erase(neigboring_cell_position[i])
-	state_grid[NEXT_POS_SPIN[neigboring_cell_position.back() - pivot] + pivot] = last_neighbor_placeholder
+		move_cell(neigboring_cell_position[i], NEXT_POS_SPIN[neigboring_cell_position[i] - pivot] + pivot)
+	#This part is basically like move_cell but without erasing the source tile.
+	var des := NEXT_POS_SPIN[neigboring_cell_position.back() - pivot] + pivot
+	state_grid[des] = last_neighbor_placeholder
+	if state_grid[des].occupant:
+		state_grid[des].occupant.teleport_to(des)
 	update_state_onto_main_map()
 
 func clear_spin(pivot_pos: Vector2i) -> void:

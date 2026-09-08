@@ -6,6 +6,7 @@ var type: String
 var source_id: int
 var alternative_source_id: int
 var atlas_coords: Vector2i 
+var occupant: GridEntities
 
 func _init(tile_map: TileMapLayer = null, coords: Vector2i = Vector2i(-1, -1)) -> void:
 	if !tile_map:
