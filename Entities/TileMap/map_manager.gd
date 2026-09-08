@@ -2,6 +2,7 @@ extends Node
 
 var state_grid: Dictionary[Vector2i, Cell] = {}
 var main_map: CustomTileMap
+var highlight_map := HighlightMap.new()
 var NEXT_POS_SPIN: Dictionary[Vector2i, Vector2i] = {
 	Vector2i(0, -1): Vector2i(1, 0),
 	Vector2i(1, 0): Vector2i(0, 1),
@@ -12,7 +13,8 @@ var NEXT_POS_SPIN: Dictionary[Vector2i, Vector2i] = {
 # Initialize the grid from the game script.
 func init_grid(main_map: CustomTileMap) -> void:
 	self.main_map = main_map
-	
+	get_tree().current_scene.add_child(highlight_map)
+
 func map_to_local(value: Vector2i) -> Vector2:
 	return main_map.map_to_local(value)
 	
@@ -43,8 +45,16 @@ func is_spinnable(pos: Vector2i) -> bool:
 
 func update_state_onto_main_map() -> void:
 	main_map.clear()
+	highlight_map.clear()
 	for cell_pos in state_grid:
 		main_map.set_cell(cell_pos, state_grid[cell_pos].source_id, state_grid[cell_pos].atlas_coords, state_grid[cell_pos].alternative_source_id)
+		if state_grid[cell_pos].is_being_chose:
+			highlight_map.highlight_tile(cell_pos)
+
+func init_spin(pivot_pos: Vector2i) -> void:
+	for pos in neighboring_cell_position(pivot_pos):
+		state_grid[pos].is_being_chose = true
+	update_state_onto_main_map()
 
 func spin_tile(pivot: Vector2i) -> void:
 	var neigboring_cell_position := neighboring_cell_position(pivot)
@@ -55,7 +65,11 @@ func spin_tile(pivot: Vector2i) -> void:
 		state_grid.erase(neigboring_cell_position[i])
 	state_grid[NEXT_POS_SPIN[neigboring_cell_position.back() - pivot] + pivot] = last_neighbor_placeholder
 	update_state_onto_main_map()
-	print(neigboring_cell_position)
+
+func clear_spin(pivot_pos: Vector2i) -> void:
+	for pos in neighboring_cell_position(pivot_pos):
+		state_grid[pos].is_being_chose = false
+	update_state_onto_main_map()
 
 func neighboring_cell_position(src: Vector2i) -> Array[Vector2i]:
 	var neighboring_cell_position: Array[Vector2i] = []

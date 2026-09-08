@@ -25,6 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		States.MOVING:
 			if event.is_action_pressed("interact") and MapManager.is_spinnable(grid_pos):
 				current_state = States.CHOOSING_ROTATION
+				MapManager.init_spin(grid_pos)
 				return
 
 			for input in directional_inputs:
@@ -35,6 +36,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		States.CHOOSING_ROTATION:
 			if event.is_action_pressed("confirm"):
 				current_state = States.MOVING
+				MapManager.clear_spin(grid_pos)
 				return
 			if event.is_action_pressed("interact"):
 				MapManager.spin_tile(grid_pos)

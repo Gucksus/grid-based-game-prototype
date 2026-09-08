@@ -1,7 +1,7 @@
 class_name Cell
 
 var walkable: bool
-var being_chose: bool 
+var is_being_chose: bool
 var type: String
 var source_id: int
 var alternative_source_id: int
