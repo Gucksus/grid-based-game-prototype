@@ -11,10 +11,11 @@ var NEXT_POS_SPIN: Dictionary[Vector2i, Vector2i] = {
 }
 const INT_INF = 9223372036854775807
 
+
 # Initialize the grid from the game script.
 func init_grid(main_map: CustomTileMap) -> void:
 	self.main_map = main_map
-	get_tree().current_scene.add_child(highlight_map)
+	get_tree().current_scene.get_child(0).add_child(highlight_map)
 
 func map_to_local(value: Vector2i) -> Vector2:
 	return main_map.map_to_local(value)

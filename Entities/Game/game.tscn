@@ -12,25 +12,30 @@ script/source = "class_name CustomGridMap
 extends CustomTileMap
 "
 
-[node name="Game" type="Node2D" unique_id=786702675]
+[node name="Main" type="Node2D" unique_id=777492699]
+
+[node name="Game" type="Node2D" parent="." unique_id=786702675]
 script = ExtResource("1_3x85p")
 
-[node name="MainMap" type="TileMapLayer" parent="." unique_id=983767496]
+[node name="MainMap" type="TileMapLayer" parent="Game" unique_id=983767496]
 z_index = -1
 use_parent_material = true
 tile_map_data = PackedByteArray("AAADAAYAAAAAAAAAAAAEAAYAAQAAAAAAAAAGAAYAAAAAAAAAAAACAAYAAAAAAAAAAAAHAAYAAAAAAAAAAAAIAAYAAAAAAAAAAAAJAAYAAAAAAAAAAAAJAAcAAAAAAAAAAAAKAAcAAAAAAAAAAAALAAgAAAAAAAAAAAAGAAcAAAAAAAAAAAAGAAgAAAAAAAAAAAAKAAgAAQAAAAAAAAAMAAgAAAAAAAAAAAANAAgAAAAAAAAAAAAOAAgAAAAAAAAAAAAPAAgAAAAAAAAAAAAQAAgAAAAAAAAAAAARAAgAAAAAAAAAAAASAAgAAAAAAAAAAAATAAgAAAAAAAAAAAAUAAgAAAAAAAAAAAAUAAkAAAAAAAAAAAAUAAoAAAAAAAAAAAAUAAsAAAAAAAAAAAAGAAkAAAAAAAAAAAAGAAoAAAAAAAAAAAAGAAsAAQAAAAAAAAAFAAsAAAAAAAAAAAAEAAsAAAAAAAAAAAAEAAwAAAAAAAAAAAAFAAwAAAAAAAAAAAAGAAwAAAAAAAAAAAAEAAUAAAAAAAAAAAABAAYAAAAAAAAAAAAFAAYAAAAAAAAAAAA=")
 tile_set = ExtResource("4_ac1je")
 script = SubResource("GDScript_krqhw")
 
-[node name="Player" parent="." unique_id=1408601688 instance=ExtResource("7_48637")]
+[node name="Player" parent="Game" unique_id=1408601688 instance=ExtResource("7_48637")]
 position = Vector2(64, 96)
 script = ExtResource("8_7psqa")
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1046665203]
-position = Vector2(-176, -112)
-anchor_mode = 0
-zoom = Vector2(3, 3)
+[node name="Camera2D" type="Camera2D" parent="Game/Player" unique_id=1046665203]
+offset = Vector2(8, 8)
+zoom = Vector2(2.855, 2.855)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
-[node name="Enemy" parent="." unique_id=459852499 instance=ExtResource("5_vgvly")]
+[node name="Enemy" parent="Game" unique_id=459852499 instance=ExtResource("5_vgvly")]
 position = Vector2(16, 96)
 script = ExtResource("6_4u23n")
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=679473174]
