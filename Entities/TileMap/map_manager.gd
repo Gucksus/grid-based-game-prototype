@@ -96,7 +96,7 @@ func the_distance_between_2_tiles(src: Vector2i, des: Vector2i):
 
 	for tile_pos in state_grid:
 		visited[tile_pos] = false
-		distance[tile_pos] = INT_INF
+		distance[tile_pos] = 0
 	visited[src] = true
 	queue.push_back(src)
 
@@ -110,4 +110,7 @@ func the_distance_between_2_tiles(src: Vector2i, des: Vector2i):
 			distance[cell_pos] = distance[current_cell] + 1
 			queue.push_back(cell_pos)
 
-	return distance[des]
+	if visited[des]:
+		return distance[des]
+	else:
+		return INT_INF
