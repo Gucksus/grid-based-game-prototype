@@ -115,3 +115,8 @@ func the_distance_between_2_tiles(src: Vector2i, des: Vector2i):
 		return distance[des]
 	else:
 		return INT_INF
+
+func reset() -> void:
+	main_map = null
+	highlight_map = null
+	state_grid.clear()

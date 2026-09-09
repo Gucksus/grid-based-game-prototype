@@ -3,6 +3,7 @@ class_name PLayerEnitity
 
 signal moved()
 signal turned()
+signal died()
 
 var directional_inputs = {
 	'up': Vector2i.UP,
@@ -11,7 +12,7 @@ var directional_inputs = {
 	'left': Vector2i.LEFT
 }
 
-enum States {MOVING, CHOOSING_ROTATION}
+enum States {MOVING, CHOOSING_ROTATION, DEAD}
 var current_state := States.MOVING
 
 @onready var arrow: Sprite2D = $Arrow
@@ -20,6 +21,10 @@ func try_move_to(pos: Vector2i):
 	if MapManager.is_walkable(pos):
 		teleport_to(pos)
 		moved.emit()
+
+func die() -> void:
+	died.emit()
+	current_state = States.DEAD
 
 func _unhandled_input(event: InputEvent) -> void:
 	match current_state:

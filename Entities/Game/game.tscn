@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" uid="uid://bvoxxby17ndd" path="res://Entities/TileMap/Asset/TileSet/base_tile_set.tres" id="4_ac1je"]
 [ext_resource type="PackedScene" uid="uid://dd2qiwwwdeky7" path="res://Entities/GridEntities/Enemy/enemy.tscn" id="5_vgvly"]
 [ext_resource type="Script" uid="uid://dec8lo6lp6ias" path="res://Entities/GridEntities/Enemy/enemy.gd" id="6_4u23n"]
+[ext_resource type="PackedScene" uid="uid://bcbfkk438tcwd" path="res://Entities/UI/Screens/DeathScreen/death_screen.tscn" id="7_4u23n"]
 [ext_resource type="PackedScene" uid="uid://dt4mah86u0754" path="res://Entities/GridEntities/Player/player.tscn" id="7_48637"]
 [ext_resource type="Script" uid="uid://momif01m25sv" path="res://Entities/GridEntities/Player/player.gd" id="8_7psqa"]
 
@@ -39,3 +40,8 @@ position = Vector2(16, 96)
 script = ExtResource("6_4u23n")
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=679473174]
+
+[node name="DeathScreen" parent="UILayer" unique_id=1820710818 instance=ExtResource("7_4u23n")]
+visible = false
+
+[connection signal="died" from="Game/Player" to="UILayer/DeathScreen" method="show_screen"]

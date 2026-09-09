@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bcbfkk438tcwd"]
+
+[ext_resource type="FontFile" uid="uid://bsnfny74p68k1" path="res://Entities/UI/boldpixels.ttf" id="1_lkbmt"]
+[ext_resource type="Script" uid="uid://tch7w2v82yov" path="res://Entities/UI/Screens/DeathScreen/Buttons/retry_button.gd" id="2_oa1lb"]
+
+[node name="DeathScreen" type="Control" unique_id=1820710818]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BackColor" type="ColorRect" parent="." unique_id=944651653]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.16078432, 0.16078432, 0.16078432, 0.54901963)
+
+[node name="Label" type="Label" parent="." unique_id=944817811]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -264.5
+offset_top = 111.0
+offset_right = 264.5
+offset_bottom = 235.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_lkbmt")
+theme_override_font_sizes/font_size = 144
+text = "YOU DED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=959775695]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -497.0
+offset_right = 200.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 76
+alignment = 1
+
+[node name="RetryButton" type="Button" parent="VBoxContainer" unique_id=916813541]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lkbmt")
+theme_override_font_sizes/font_size = 64
+text = "RETRY"
+script = ExtResource("2_oa1lb")
+
+[node name="ExitButton" type="Button" parent="VBoxContainer" unique_id=607776127]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_lkbmt")
+theme_override_font_sizes/font_size = 64
+text = "EXIT"

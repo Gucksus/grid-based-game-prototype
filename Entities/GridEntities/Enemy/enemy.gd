@@ -1,3 +1,4 @@
+class_name EnemyEntity
 extends GridEntities
 
 @onready var player: PLayerEnitity = $"../Player"
