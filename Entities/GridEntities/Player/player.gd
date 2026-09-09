@@ -1,6 +1,8 @@
 extends GridEntities
+class_name PLayerEnitity
 
-signal moved(new_pos: Vector2i)
+signal moved()
+signal turned()
 
 var directional_inputs = {
 	'up': Vector2i.UP,
@@ -39,3 +41,4 @@ func _unhandled_input(event: InputEvent) -> void:
 				return
 			if event.is_action_pressed("interact"):
 				MapManager.spin_tile(grid_pos)
+				turned.emit()

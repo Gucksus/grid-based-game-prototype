@@ -9,6 +9,7 @@ var NEXT_POS_SPIN: Dictionary[Vector2i, Vector2i] = {
 	Vector2i(0, 1): Vector2i(-1 ,0),
 	Vector2i(-1, 0): Vector2i(0, -1)
 }
+const INT_INF = 9223372036854775807
 
 # Initialize the grid from the game script.
 func init_grid(main_map: CustomTileMap) -> void:
@@ -95,7 +96,7 @@ func the_distance_between_2_tiles(src: Vector2i, des: Vector2i):
 
 	for tile_pos in state_grid:
 		visited[tile_pos] = false
-		distance[tile_pos] = 0
+		distance[tile_pos] = INT_INF
 	visited[src] = true
 	queue.push_back(src)
 
