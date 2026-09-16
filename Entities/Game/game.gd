@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var main_map: CustomTileMap = $MainMap
-@onready var player: PLayerEnitity = $Player
+@onready var player: PlayerEnitity = $Player
 @onready var enemy: EnemyEntity = $Enemy
 
 func _ready() -> void:

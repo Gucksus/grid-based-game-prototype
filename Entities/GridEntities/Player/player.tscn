@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dt4mah86u0754"]
 
 [ext_resource type="Texture2D" uid="uid://du8sdoniogr3w" path="res://Entities/GridEntities/Player/Art/player.png" id="1_3uyv8"]
+[ext_resource type="Script" uid="uid://momif01m25sv" path="res://Entities/GridEntities/Player/player.gd" id="1_naf87"]
+[ext_resource type="Script" uid="uid://dkua2fj4s1dd3" path="res://Entities/GridEntities/HelperCode/state_factory.gd" id="2_naf87"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yqjtg"]
 size = Vector2(16, 16)
@@ -129,6 +131,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=1408601688]
+script = ExtResource("1_naf87")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1423002818]
 position = Vector2(8, 8)
@@ -144,3 +147,8 @@ offset = Vector2(0, -16)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=196033769]
 libraries/ = SubResource("AnimationLibrary_ld8i1")
+
+[node name="StateFactory" type="Node2D" parent="." unique_id=2137987876]
+script = ExtResource("2_naf87")
+
+[connection signal="ready" from="." to="StateFactory" method="_on_player_ready"]

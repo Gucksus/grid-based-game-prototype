@@ -1,7 +1,7 @@
 class_name EnemyEntity
 extends GridEntities
 
-@onready var player: PLayerEnitity = $"../Player"
+@onready var player: PlayerEnitity = $"../Player"
 
 func _ready() -> void:
 	super._ready()
