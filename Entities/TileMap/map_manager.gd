@@ -63,7 +63,7 @@ func move_cell(src: Vector2i, des: Vector2i):
 	state_grid[des] = state_grid[src]
 	state_grid.erase(src)
 	if state_grid[des].occupant:
-		state_grid[des].occupant.teleport_to(des)
+		state_grid[des].occupant.move_to(des)
 
 func spin_tile(pivot: Vector2i) -> void:
 	var neigboring_cell_position := neighboring_cell_position(pivot)
@@ -75,7 +75,7 @@ func spin_tile(pivot: Vector2i) -> void:
 	var des := NEXT_POS_SPIN[neigboring_cell_position.back() - pivot] + pivot
 	state_grid[des] = last_neighbor_placeholder
 	if state_grid[des].occupant:
-		state_grid[des].occupant.teleport_to(des)
+		state_grid[des].occupant.move_to(des)
 	update_state_onto_main_map()
 
 func clear_spin(pivot_pos: Vector2i) -> void:

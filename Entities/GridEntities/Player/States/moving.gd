@@ -5,11 +5,12 @@ class_name PlayerMoving
 
 var tween: Tween
 var duration := .3
-var spam_delay := .2
-var timer := 0
+var spam_delay := .1
+var timer := 0.0
 
 func play_moving_anim() -> void:
 	if tween:
+		tween.stop()
 		tween.kill()
 	sprite_2d.scale = Vector2(1.5, 0.5)
 	tween = get_tree().create_tween()
@@ -25,10 +26,12 @@ func _process(delta: float) -> void:
 	timer += delta
 	if not tween.is_running():
 		transition_to.emit(PlayerIdle)
-	elif player.next_grid_pos != Vector2i(-1, -1) and player.try_move_to(player.next_grid_pos) and timer >= spam_delay:
+
+func process_input(event: InputEvent) -> void:
+	if player.next_grid_pos != Vector2i(-1, -1) and MapManager.is_walkable(player.next_grid_pos) and timer >= spam_delay:
+		player.move_to(player.next_grid_pos)
 		play_moving_anim()
 		timer = 0
 
 func exit() -> void:
 	super.exit()
-	player.moved.emit()

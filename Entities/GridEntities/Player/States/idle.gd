@@ -7,5 +7,6 @@ func process_input(event: InputEvent) -> void:
 		MapManager.init_spin(player.grid_pos)
 		return
 
-	if player.next_grid_pos != Vector2i(-1, -1) and player.try_move_to(player.next_grid_pos):
+	if player.next_grid_pos != Vector2i(-1, -1) and MapManager.is_walkable(player.next_grid_pos):
+		player.move_to(player.next_grid_pos)
 		transition_to.emit(PlayerMoveAnticipation)

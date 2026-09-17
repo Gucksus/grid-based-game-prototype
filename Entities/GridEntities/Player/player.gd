@@ -21,22 +21,15 @@ func _ready() -> void:
 	await get_parent().ready
 	set_position_from_grid_pos(grid_pos)
 
-func teleport_to(des: Vector2i) -> void:
+func move_to(des: Vector2i) -> void:
 	if MapManager.state_grid.has(grid_pos):
 		MapManager.state_grid[grid_pos].occupant = null
 	MapManager.state_grid[des].occupant = self
 	grid_pos = des
-
-func try_move_to(pos: Vector2i) -> bool:
-	if MapManager.is_walkable(pos):
-		teleport_to(pos)
-		return true
-	return false
+	#moved.emit()
 
 func die() -> void:
-	pass
-	#died.emit()
-	#current_state = States.DEAD
+	died.emit()
 
 func state_transition_to(new_state: GDScript):
 	if current_state:

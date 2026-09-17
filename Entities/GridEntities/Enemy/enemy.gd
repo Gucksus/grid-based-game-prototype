@@ -19,7 +19,7 @@ func take_turn() -> void:
 			min_distance = distance
 			next_tile_pos = tile_pos
 	if next_tile_pos != Vector2i(-1, -1):
-		teleport_to(next_tile_pos)
+		move_to(next_tile_pos)
 		return
 	else:
 		min_distance = grid_pos.distance_to(player.grid_pos)
@@ -29,4 +29,4 @@ func take_turn() -> void:
 				min_distance = distance
 				next_tile_pos = tile_pos
 		if next_tile_pos != Vector2i(-1, -1):
-			teleport_to(next_tile_pos)
+			move_to(next_tile_pos)

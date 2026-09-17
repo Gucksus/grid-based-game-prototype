@@ -7,7 +7,6 @@ extends Node2D
 func _ready() -> void:
 	MapManager.init_grid(main_map)
 	MapManager.build_from_tilemap()
-	remove_child(enemy)
 
 func _process(delta: float) -> void:
 	if player.grid_pos == enemy.grid_pos:
