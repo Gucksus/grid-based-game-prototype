@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://dec8lo6lp6ias" path="res://Entities/GridEntities/Enemy/enemy.gd" id="6_4u23n"]
 [ext_resource type="PackedScene" uid="uid://bcbfkk438tcwd" path="res://Entities/UI/Screens/DeathScreen/death_screen.tscn" id="7_4u23n"]
 [ext_resource type="PackedScene" uid="uid://dt4mah86u0754" path="res://Entities/GridEntities/Player/player.tscn" id="7_48637"]
-[ext_resource type="Script" uid="uid://momif01m25sv" path="res://Entities/GridEntities/Player/player.gd" id="8_7psqa"]
 
 [sub_resource type="GDScript" id="GDScript_krqhw"]
 script/source = "class_name CustomGridMap
@@ -27,7 +26,6 @@ script = SubResource("GDScript_krqhw")
 
 [node name="Player" parent="Game" unique_id=1408601688 instance=ExtResource("7_48637")]
 position = Vector2(64, 96)
-script = ExtResource("8_7psqa")
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player" unique_id=1046665203]
 offset = Vector2(8, 8)
