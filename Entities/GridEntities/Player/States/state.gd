@@ -1,12 +1,11 @@
 extends Node2D
 class_name State
 
-@onready var player: PlayerEnitity
+@onready var player: PlayerEnitity = $".."
 
 signal transition_to(new_state: GDScript)
 
 func init() -> void:
-	player = get_parent()
 	transition_to.connect(player.state_transition_to)
 
 func enter() -> void:

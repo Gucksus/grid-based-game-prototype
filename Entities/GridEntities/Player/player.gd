@@ -18,6 +18,8 @@ var current_state: State
 func _ready() -> void:
 	super._ready()
 	state_transition_to(PlayerIdle)
+	await get_parent().ready
+	set_position_from_grid_pos(grid_pos)
 
 func teleport_to(des: Vector2i) -> void:
 	if MapManager.state_grid.has(grid_pos):
@@ -28,12 +30,12 @@ func teleport_to(des: Vector2i) -> void:
 func try_move_to(pos: Vector2i) -> bool:
 	if MapManager.is_walkable(pos):
 		teleport_to(pos)
-		moved.emit()
 		return true
 	return false
 
 func die() -> void:
-	died.emit()
+	pass
+	#died.emit()
 	#current_state = States.DEAD
 
 func state_transition_to(new_state: GDScript):
@@ -49,3 +51,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed(input):
 			next_grid_pos = grid_pos + directional_inputs[input]
 	current_state.process_input(event)
+
+func _process(delta: float) -> void:
+	print(current_state)
