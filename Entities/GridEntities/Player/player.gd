@@ -4,7 +4,6 @@ class_name PlayerEnitity
 signal moved()
 signal turned()
 signal died()
-@onready var state_factory: StateFactory = $StateFactory
 
 var directional_inputs = {
 	'up': Vector2i.UP,
@@ -13,9 +12,12 @@ var directional_inputs = {
 	'left': Vector2i.LEFT
 }
 
-enum States {MOVING, CHOOSING_ROTATION, DEAD, IDLE}
-var current_state := States.MOVING
 var next_grid_pos := Vector2i(-1, -1)
+var current_state: State
+
+func _ready() -> void:
+	super._ready()
+	state_transition_to(PlayerIdle)
 
 func teleport_to(des: Vector2i) -> void:
 	if MapManager.state_grid.has(grid_pos):
@@ -32,11 +34,18 @@ func try_move_to(pos: Vector2i) -> bool:
 
 func die() -> void:
 	died.emit()
-	current_state = States.DEAD
+	#current_state = States.DEAD
+
+func state_transition_to(new_state: GDScript):
+	if current_state:
+		current_state.exit()
+	current_state = new_state.new()
+	add_child(current_state)
+	current_state.enter()
 
 func _unhandled_input(event: InputEvent) -> void:
 	next_grid_pos = Vector2i(-1, -1)
 	for input in directional_inputs:
 		if event.is_action_pressed(input):
 			next_grid_pos = grid_pos + directional_inputs[input]
-	state_factory.process(event)
+	current_state.process_input(event)

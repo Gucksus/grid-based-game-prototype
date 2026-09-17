@@ -11,6 +11,6 @@ func enter() -> void:
 	super.enter()
 	animation_player.play("move_anticipation")
 
-func _process(delta: float) -> void:
-	if animation_player.animation_finished:
+func process_input(event: InputEvent) -> void:
+	if not animation_player.is_playing():
 		transition_to.emit(PlayerMoving.new())
