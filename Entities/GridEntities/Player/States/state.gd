@@ -5,11 +5,8 @@ class_name State
 
 signal transition_to(new_state: GDScript)
 
-func init() -> void:
-	transition_to.connect(player.state_transition_to)
-
 func enter() -> void:
-	init()
+	transition_to.connect(player.state_transition_to)
 
 func exit() -> void:
 	queue_free()
