@@ -3,9 +3,10 @@ class_name GridEntities
 
 # The position of the player on the logic grid.
 var grid_pos: Vector2i
+var position_offset := Vector2(0, -16)
 
 func grid_pos_to_position(grid_pos: Vector2i) -> Vector2:
-	return MapManager.map_to_local(grid_pos) - Vector2(8, 8)
+	return MapManager.map_to_local(grid_pos) + position_offset
 
 func position_to_grid_pos(position: Vector2) -> Vector2i:
 	return MapManager.local_to_map(position)
