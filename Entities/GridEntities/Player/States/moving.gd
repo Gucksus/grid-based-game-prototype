@@ -8,15 +8,26 @@ var duration := .3
 var spam_delay := .1
 var timer := 0.0
 
+func reset_sprite_pos_and_offset() -> void:
+	if player.last_move_direction == Vector2i.UP or player.last_move_direction == Vector2i.DOWN:
+		sprite_2d.position = Vector2(0, 16)
+		sprite_2d.offset = Vector2(0, 0)
+	elif player.last_move_direction == Vector2i.RIGHT:
+		sprite_2d.position = Vector2(-8, 24)
+		sprite_2d.offset = Vector2(8, -8)
+	elif player.last_move_direction == Vector2i.LEFT:
+		sprite_2d.position = Vector2(8, 24)
+		sprite_2d.offset = Vector2(-8, -8)
+
 func play_moving_anim() -> void:
 	if tween:
 		tween.stop()
 		tween.kill()
 	sprite_2d.scale = Vector2(1.5, 0.5)
+	reset_sprite_pos_and_offset()
 	tween = get_tree().create_tween()
 	tween.tween_property(player, "position", player.grid_pos_to_position(player.grid_pos), duration).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
 	tween.parallel().tween_property(sprite_2d, "scale", Vector2(1, 1), duration).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	tween.parallel().tween_property(sprite_2d, "position", Vector2(0, 16), duration).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUINT)
 
 func enter() -> void:
 	super.enter()
