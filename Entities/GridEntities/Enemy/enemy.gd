@@ -2,6 +2,7 @@ class_name EnemyEntity
 extends GridEntities
 
 @onready var player: PlayerEnitity = $"../Player"
+@onready var sprite_2d: Sprite2D = $Sprite2D
 
 func _ready() -> void:
 	super._ready()

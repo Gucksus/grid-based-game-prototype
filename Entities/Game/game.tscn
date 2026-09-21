@@ -42,4 +42,15 @@ script = ExtResource("6_4u23n")
 [node name="DeathScreen" parent="UILayer" unique_id=1820710818 instance=ExtResource("7_4u23n")]
 visible = false
 
+[node name="BackGroundColor" type="ColorRect" parent="." unique_id=499856712]
+process_mode = 4
+visible = false
+z_index = -12
+offset_left = -320.0
+offset_top = -144.0
+offset_right = 544.0
+offset_bottom = 400.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [connection signal="died" from="Game/Player" to="UILayer/DeathScreen" method="show_screen"]
