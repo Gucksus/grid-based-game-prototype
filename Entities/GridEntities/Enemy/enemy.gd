@@ -6,8 +6,8 @@ extends GridEntities
 
 func _ready() -> void:
 	super._ready()
-	player.moved.connect(take_turn)
-	player.turned.connect(take_turn)
+	#player.moved.connect(take_turn)
+	#player.turned.connect(take_turn)
 
 func take_turn() -> void:
 	var min_distance = MapManager.the_distance_between_2_tiles(grid_pos, player.grid_pos)

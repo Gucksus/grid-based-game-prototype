@@ -25,6 +25,7 @@ tile_set = ExtResource("4_ac1je")
 script = SubResource("GDScript_krqhw")
 
 [node name="Player" parent="Game" unique_id=1408601688 instance=ExtResource("7_48637")]
+z_index = 1
 position = Vector2(64, 96)
 
 [node name="Camera2D" type="Camera2D" parent="Game/Player" unique_id=1046665203]
@@ -49,6 +50,5 @@ color = Color(0, 0, 0, 1)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Lighting" unique_id=202642608]
 position = Vector2(128, 64)
-editor_only = true
 
 [connection signal="died" from="Game/Player" to="UILayer/DeathScreen" method="show_screen"]

@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://du8sdoniogr3w" path="res://Entities/GridEntities/Player/Art/player.png" id="1_3uyv8"]
 [ext_resource type="Script" uid="uid://momif01m25sv" path="res://Entities/GridEntities/Player/player.gd" id="1_naf87"]
+[ext_resource type="Texture2D" uid="uid://cc1oqkckccm08" path="res://Entities/Lighting/light_texture.tres" id="3_naf87"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yqjtg"]
 size = Vector2(16, 16)
@@ -239,15 +240,6 @@ _data = {
 &"move_up_anticipation": SubResource("Animation_3h4na")
 }
 
-[sub_resource type="Gradient" id="Gradient_vgvly"]
-offsets = PackedFloat32Array(0.42872086, 0.5101162, 1)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ld8i1"]
-gradient = SubResource("Gradient_vgvly")
-fill_from = Vector2(0, 0.5170281)
-fill_to = Vector2(1, 0.5170281)
-
 [node name="Player" type="CharacterBody2D" unique_id=1408601688]
 script = ExtResource("1_naf87")
 
@@ -263,7 +255,7 @@ texture = ExtResource("1_3uyv8")
 libraries/ = SubResource("AnimationLibrary_ld8i1")
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=1631082795]
-position = Vector2(-9.536743e-07, 16)
-scale = Vector2(3.5000002, 1)
+position = Vector2(-1.5258789e-05, 16)
+scale = Vector2(0.7257732, 0.14814816)
 shadow_enabled = true
-texture = SubResource("GradientTexture2D_ld8i1")
+texture = ExtResource("3_naf87")
