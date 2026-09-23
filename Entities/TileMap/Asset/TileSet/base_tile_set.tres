@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://3jwdwvkqfk64" path="res://Entities/TileMap/Asset/Images/walkTile.png" id="1_ldgme"]
 [ext_resource type="Texture2D" uid="uid://d3vtdpbrhnpjq" path="res://Entities/TileMap/Asset/Images/spin_tile.png" id="2_swlou"]
+[ext_resource type="Texture2D" uid="uid://dqg1lb3n2idcg" path="res://Entities/TileMap/Asset/Images/wall.png" id="3_pf716"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yqjtg"]
 texture = ExtResource("1_ldgme")
@@ -15,10 +16,20 @@ texture = ExtResource("2_swlou")
 0:0/0/custom_data_0 = true
 0:0/0/custom_data_1 = "spin_pivot"
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_kegkm"]
+polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ntunu"]
+texture = ExtResource("3_pf716")
+0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_kegkm")
+
 [resource]
+occlusion_layer_0/light_mask = 1
 custom_data_layer_0/name = "walkable"
 custom_data_layer_0/type = 1
 custom_data_layer_1/name = "type"
 custom_data_layer_1/type = 4
 sources/0 = SubResource("TileSetAtlasSource_yqjtg")
 sources/1 = SubResource("TileSetAtlasSource_p57ef")
+sources/2 = SubResource("TileSetAtlasSource_ntunu")

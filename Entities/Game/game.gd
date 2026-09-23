@@ -3,7 +3,6 @@ extends Node2D
 @onready var main_map: CustomTileMap = $MainMap
 @onready var player: PlayerEnitity = $Player
 @onready var enemy: EnemyEntity = $Enemy
-@onready var back_ground_color: ColorRect = $"../Lighting/BackGroundColor"
 
 func _ready() -> void:
 	MapManager.init_grid(main_map)
