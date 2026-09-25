@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://du8sdoniogr3w" path="res://Entities/GridEntities/Player/Art/player.png" id="1_3uyv8"]
 [ext_resource type="Script" uid="uid://momif01m25sv" path="res://Entities/GridEntities/Player/player.gd" id="1_naf87"]
-[ext_resource type="Texture2D" uid="uid://cc1oqkckccm08" path="res://Entities/Lighting/light_texture.tres" id="3_naf87"]
+[ext_resource type="Texture2D" uid="uid://c4hdiagunh6yr" path="res://Entities/Lighting/istockphoto-1136961004-612x612.jpg" id="3_naf87"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yqjtg"]
 size = Vector2(16, 16)
@@ -254,8 +254,9 @@ texture = ExtResource("1_3uyv8")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=196033769]
 libraries/ = SubResource("AnimationLibrary_ld8i1")
 
-[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1631082795]
-position = Vector2(-1.5258789e-05, 16)
-scale = Vector2(0.7257732, 0.14814816)
+[node name="FlashLight" type="PointLight2D" parent="." unique_id=1631082795]
+position = Vector2(0, 16)
+scale = Vector2(0.26143792, 0.24105462)
 shadow_enabled = true
 texture = ExtResource("3_naf87")
+offset = Vector2(306, 0)

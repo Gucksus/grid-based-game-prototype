@@ -13,6 +13,7 @@ var directional_inputs = {
 }
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var flash_light: PointLight2D = $FlashLight
 var next_grid_pos := Vector2i(-1, -1)
 var last_move_direction: Vector2i
 var current_state: State
@@ -48,6 +49,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed(input):
 			next_grid_pos = grid_pos + directional_inputs[input]
 	current_state.process_input(event)
+	
+	flash_light.rotation = (get_global_mouse_position() - position).angle()
 
 func _process(delta: float) -> void:
 	#print(current_state)
