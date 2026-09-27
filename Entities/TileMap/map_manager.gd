@@ -62,14 +62,14 @@ func init_spin(pivot_pos: Vector2i) -> void:
 
 func move_cell(src: Vector2i, des: Vector2i):
 	state_grid[des] = state_grid[src]
-	state_grid[src] = main_map.get_wall_cell()
+	state_grid.erase(src)
 	if state_grid[des].occupant:
 		state_grid[des].occupant.move_to(des)
 
 func spin_tile(pivot: Vector2i) -> void:
 	var neigboring_cell_position := neighboring_cell_position(pivot)
 	var last_neighbor_placeholder := state_grid[neigboring_cell_position.back()]
-	state_grid[neigboring_cell_position.back()] = main_map.get_wall_cell()
+	state_grid.erase(neigboring_cell_position.back())
 	for i in range(neigboring_cell_position.size() - 2, -1, -1):
 		move_cell(neigboring_cell_position[i], NEXT_POS_SPIN[neigboring_cell_position[i] - pivot] + pivot)
 	#This part is basically like move_cell but without erasing the source tile.
